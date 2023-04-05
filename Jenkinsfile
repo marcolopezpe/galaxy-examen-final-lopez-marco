@@ -18,6 +18,11 @@ pipeline {
           sh 'mvn clean package'
         }
       }
+      post {
+        success {
+          archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+        }
+      }
     }
 
     stage('SonarQube') {
@@ -39,11 +44,11 @@ pipeline {
     stage('Build Image') {
       steps {
         copyArtifacts filter: 'target/*.jar',
-            fingerprintArtifacts: true,
-            projectName: '${JOB_NAME}',
-            flatten: true,
-            selector: specific("${BUILD_NUMBER}"),
-            target: 'target'
+                      fingerprintArtifacts: true,
+                      projectName: '${JOB_NAME}',
+                      flatten: true,
+                      selector: specific("${BUILD_NUMBER}"),
+                      target: 'target'
         sh 'docker --version'
         sh 'docker-compose --version'
         sh 'docker-compose build'

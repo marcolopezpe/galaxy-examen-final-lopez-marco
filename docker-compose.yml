@@ -4,6 +4,6 @@ services:
     image: msmicroservice
     build:
       context: .
-      dockerfile: ./src/main/docker/Dockerfile
+      dockerfile: ./Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
