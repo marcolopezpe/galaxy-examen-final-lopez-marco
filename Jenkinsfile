@@ -1,4 +1,5 @@
 pipeline {
+
   agent any
 
   environment {
@@ -15,17 +16,22 @@ pipeline {
       steps {
         script {
           sh 'mvn clean install'
-          sh 'ls -l target'
+          sh 'ls -l target/'
         }
       }
       post {
         success {
-          archiveArtifacts artifacts: 'target/*.jar', fingerprint: true, onlyIfSuccessful: true
+          archiveArtifacts artifacts: 'target/labmaven-*.jar', fingerprint: true, onlyIfSuccessful: true
         }
       }
     }
 
     stage('SonarQube') {
+      agent {
+        docker {
+          image 'maven:3.6.3-openjdk-11-slim'
+        }
+      }
       steps {
         script {
           def scannerHome = tool 'scanner-default'
