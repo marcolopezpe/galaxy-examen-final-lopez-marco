@@ -17,7 +17,7 @@ pipeline {
         script {
           sh 'java -version'
           sh 'mvn -version'
-          sh 'mvn clean install'
+          sh 'mvn clean install -X'
           sh 'ls -l target/'
         }
       }
