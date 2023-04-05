@@ -91,6 +91,9 @@ pipeline {
     }
 
     stage('Run Container') {
+      environment {
+        DOCKER_CREDS = credentials('docker-credentials')
+      }
       steps {
         script {
           sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
