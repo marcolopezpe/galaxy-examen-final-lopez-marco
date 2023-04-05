@@ -1,7 +1,7 @@
-FROM openjdk:11-jre-slim
+FROM amazoncorretto:11.0.17
 
-ADD target/*.jar app.jar
-ADD entrypoint.sh entrypoint.sh
-RUN chmod +x entrypoint.sh
+ARG JAR_FILE=target/*.jar
 
-ENTRYPOINT ["./entrypoint.sh"]
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
