@@ -15,7 +15,9 @@ pipeline {
       }
       steps {
         script {
-          sh 'mvn package -DskipTests'
+          sh 'java -version'
+          sh 'mvn -version'
+          sh 'mvn clean install'
           sh 'ls -l target/'
         }
       }
