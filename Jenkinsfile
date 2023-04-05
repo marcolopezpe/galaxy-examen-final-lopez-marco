@@ -7,6 +7,12 @@ pipeline {
   }
 
   stages {
+    stage('Checkout repository') {
+      steps {
+        cleanWs()
+        checkout scm
+      }
+    }
     stage('Build') {
       agent {
         docker {
