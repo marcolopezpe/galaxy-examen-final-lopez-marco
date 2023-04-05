@@ -14,8 +14,8 @@ pipeline {
       }
       steps {
         script {
-          sh 'mvn verify'
-          sh 'mvn clean package'
+          sh 'mvn package'
+          sh 'ls -l target'
         }
       }
       post {
