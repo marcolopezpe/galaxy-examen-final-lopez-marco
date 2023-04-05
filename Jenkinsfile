@@ -26,11 +26,11 @@ pipeline {
           def scannerHome = tool 'scanner-default'
           withSonarQubeEnv('sonar-server') {
             sh "${scannerHome}/bin/sonar-scanner \
-            -Dsonar.projectKey=labgradle01 \
-            -Dsonar.projectName=labgradle01 \
-            -Dsonar.sources=src/main/java \
-            -Dsonar.java.binaries=build/classes \
-            -Dsonar.tests=src/test/java"
+            -Dsonar.projectKey=labmaven \
+            -Dsonar.projectName=labmaven \
+            -Dsonar.sources=src/main \
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.tests=src/test"
           }
         }
       }
@@ -43,14 +43,14 @@ pipeline {
             projectName: '${JOB_NAME}',
             flatten: true,
             selector: specific("${BUILD_NUMBER}"),
-            target: 'target/'
+            target: 'target'
         sh 'docker --version'
         sh 'docker-compose --version'
         sh 'docker-compose build'
       }
     }
 
-    stage('Publis Image') {
+    stage('Publish Image') {
       steps {
         script {
           sh 'docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW}'
