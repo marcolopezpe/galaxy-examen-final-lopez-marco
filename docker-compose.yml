@@ -2,6 +2,7 @@ version: '3.8'
 services:
   microservice:
     image: msmicroservice
+    container_name: msmicroservice
     build:
       context: .
       dockerfile: ./Dockerfile
