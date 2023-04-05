@@ -1,4 +1,4 @@
-FROM amazoncorretto:11.0.17
+FROM openjdk:11-slim
 
 ARG JAR_FILE=target/*.jar
 
